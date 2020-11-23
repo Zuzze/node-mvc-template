@@ -2,23 +2,21 @@
 const http = require("http");
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
-// add middleware, function will be executed for each incoming request
-// you can also chain middlewares if you call next() in earlier middlewaares
-/*app.use((req, res, next) => {
-  console.log("MIDDLEWARE: request in handling");
-  next();
-});*/
+const adminRoutes = require("./routes/admin");
+const publicRoutes = require("./routes/shop");
 
-// Note that most specific path must be first, if "/" is handled first, it matches with all paths
-app.use("/users", (req, res, next) => {
-  res.send("<h1>Users</h1>");
-});
+// NOTE! bodyparser in the init
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// first optional argument is the url path
-app.use("/", (req, res, next) => {
-  //  return response by using res.send()
-  res.send("<h1>Home</h1>");
+// add router modules this way
+app.use(adminRoutes);
+app.use(publicRoutes);
+
+// 404 page
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page not found</h1>");
 });
 
 const server = http.createServer(app);

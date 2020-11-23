@@ -31,3 +31,22 @@ Enables "hot reloading" so you don't have to restart the server everry time you 
 1. Syntax errors
 2. Runtime errrors
 3. Logical errors
+
+## Express & Bodyparser
+
+Init
+
+```
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+
+const app = express()
+app.use(bodyparser.urlencoded({extended: false})
+```
+
+### Types of requests
+
+- `app.use()` (All http methods)
+- `app.get()` (Only GET)
+- `app.post()` (Only POST)
