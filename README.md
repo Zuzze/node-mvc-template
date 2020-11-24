@@ -50,3 +50,9 @@ app.use(bodyparser.urlencoded({extended: false})
 - `app.use()` (All http methods)
 - `app.get()` (Only GET)
 - `app.post()` (Only POST)
+
+## public folder
+
+if you want to expose client to some files (e.g. CSS) in your node.js app, you have to put them into `public folder`
+
+NOTE: when referring to public folder, use "/" as route, not "/public/" as node sees public files are in the root
