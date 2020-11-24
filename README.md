@@ -26,15 +26,9 @@ c) Prod only: npm install <package> --save
 
 Enables "hot reloading" so you don't have to restart the server everry time you make a change in your code
 
-## Error handling
-
-1. Syntax errors
-2. Runtime errrors
-3. Logical errors
-
 ## Express & Bodyparser
 
-Init
+Init express server
 
 ```
 const express = require("express");
