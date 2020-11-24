@@ -5,18 +5,18 @@ const express = require("express");
 const root = require("./utils/path");
 const app = express();
 const bodyParser = require("body-parser");
-const expressHbs = require("express-handlebars");
+//const expressHbs = require("express-handlebars");
 
 // ======== TEMPLATING ENGINE ========
-// PUG
+// -PUG-
 // app.set("view engine", "pug");
 //app.set("views", "views"); // compile templates in views to views
 
-// HANDLEBARS
+// -HANDLEBARS-
 // remember to import require("express-handlebars");!
 // the selected name (here "handlebars") will be the extension of the file e.g. "shop.handlebars"
 // first parameter is extension for views files, extname is extension for layout
-app.engine(
+/*app.engine(
   "handlebars",
   expressHbs({
     layoutsDir: "views/layouts",
@@ -25,6 +25,10 @@ app.engine(
   })
 );
 app.set("view engine", "handlebars");
+app.set("views", "views");*/
+
+// -EJS-
+app.set("view engine", "ejs");
 app.set("views", "views");
 
 // ============= ROUTING ==============

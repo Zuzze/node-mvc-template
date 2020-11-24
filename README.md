@@ -51,8 +51,95 @@ app.use(bodyparser.urlencoded({extended: false})
 - `app.get()` (Only GET)
 - `app.post()` (Only POST)
 
-## public folder
+## Public folder
 
 if you want to expose client to some files (e.g. CSS) in your node.js app, you have to put them into `public folder`
 
 NOTE: when referring to public folder, use "/" as route, not "/public/" as node sees public files are in the root
+
+## Templating engines
+
+Tools to mix dynamic content (JS) into template (HTML). The final page response will be always pure HTML. Define template engines with express using `app.set("view engine", "handlebars")` and return template by `res.render(...)`.
+
+### 1. Pug
+
+No end tags, indentation important
+
+```
+ main
+        if prods.length > 0
+            ...
+        else
+            ...
+```
+
+Variable
+
+```
+title #{pageTitle}
+```
+
+Can extract main layout by
+
+```
+extends layouts/main-layout.pug
+```
+
+### 2. Handlebars
+
+Uses {{...}} to separate JS, uses `#` to start and `/` to end. Can extract main layout into separate file
+
+```
+<main>
+    {{#if hasProducts }}
+        ...
+    {{ else }}
+        ...
+    {{/if }}
+</main>
+```
+
+Variable
+
+```
+<title>{{ pageTitle }}</title>
+```
+
+Can extract main layout into `main-layout.handlebars` and define in `app.js` (not in template)
+
+```
+app.engine(
+  "handlebars",
+  expressHbs({
+    layoutsDir: "views/layouts",
+    defaultLayout: "main-layout",
+    extname: "handlebars"
+  })
+);
+```
+
+### 3. EJS
+
+JS wrapped inside `<% ... %>`.
+
+```
+<main>
+    <% if (prods.length > 0) { %>
+        ...
+    <% } else { %>
+        ...
+    <% } %>
+</main>
+```
+
+Variable
+
+```
+<title><%= pageTitle %></title>
+```
+
+Can extract main layout into separate files (`head.ejs`, `navigation.ejs`, `end.js`), import into template by
+
+```
+<%- include('includes/head.ejs') %>
+```
