@@ -27,7 +27,8 @@ app.use(publicRoutes);
 app.use((req, res, next) => {
   //res.status(404).send("<h1>Page not found</h1>");
   //path.join(__dirname, "..", "views", "page-not-found.html")
-  res.status(404).sendFile(path.join(root, "views", "page-not-found.html"));
+  //res.status(404).sendFile(path.join(root, "views", "page-not-found.html"));
+  res.status(404).render("page-not-found", { pageTitle: "Page not found" });
 });
 
 app.listen(3000);

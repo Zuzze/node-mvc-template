@@ -14,7 +14,11 @@ router.get("/", (req, res, next) => {
   // render uses templating engine defined in app.js
   // /views is default path
   // set dynamic content as key-value pairs as second argument
-  res.render("shop", { prods: adminData.products, docTitle: "Shop" });
+  res.render("shop", {
+    prods: adminData.products,
+    pageTitle: "Shop",
+    path: "/"
+  });
 });
 
 module.exports = router;
