@@ -6,7 +6,7 @@ const root = require("./utils/path");
 const app = express();
 const bodyParser = require("body-parser");
 
-const adminRoutes = require("./routes/admin");
+const adminData = require("./routes/admin");
 const publicRoutes = require("./routes/shop");
 
 // NOTE! bodyparser in the init
@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // add router modules this way
 // first parameter is optional `filter`
-app.use("/admin", adminRoutes);
+app.use("/admin", adminData.router);
 app.use(publicRoutes);
 
 // 404 page
