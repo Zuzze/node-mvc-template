@@ -4,6 +4,11 @@ const http = require("http");
 const express = require("express");
 const root = require("./utils/path");
 const app = express();
+
+// set templating engine (pug, ejs, handlebars)
+app.set("view engine", "pug");
+app.set("views", "views"); // compile templates in views to views
+
 const bodyParser = require("body-parser");
 
 const adminData = require("./routes/admin");
