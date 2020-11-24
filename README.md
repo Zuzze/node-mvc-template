@@ -2,7 +2,7 @@
 
 This repository is based on 40+ hours complete Node.js course by Academind including tools to work with node.js from basic to advanced.
 
-## NPM (Node Package Manager)
+## npm (Node Package Manager)
 
 A tool to add external packages and manage nodejs apps.
 
@@ -116,6 +116,12 @@ app.engine(
     extname: "handlebars"
   })
 );
+```
+
+You must define body (where content goes) in `main-layout.handlebars` template:
+
+```
+   {{{ body }}}
 ```
 
 ### 3. EJS
