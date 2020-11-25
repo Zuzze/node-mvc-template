@@ -4,6 +4,7 @@ const express = require("express");
 const root = require("./utils/path");
 const app = express();
 const bodyParser = require("body-parser");
+const errorController = require("./controllers/error");
 
 // ====== EJS TEMPLATING ENGINE =======
 app.set("view engine", "ejs");
@@ -22,8 +23,6 @@ app.use("/admin", adminRoutes);
 app.use(publicRoutes);
 
 // ============= 404 PAGE ==============
-app.use((req, res, next) => {
-  res.status(404).render("page-not-found", { pageTitle: "Page not found" });
-});
+app.use(errorController.get404);
 
 app.listen(3000);
