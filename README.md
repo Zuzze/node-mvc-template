@@ -4,9 +4,9 @@ This repository is based on 40+ hours complete Node.js course by Academind inclu
 
 ## M = Model
 
-- WHAT: Models represent data in your code, ES6 classes
-- WHERE: in `/models`
-- FORMAT: `product.js`
+- **_what_** : Models represent data in your code, ES6 classes
+- **_where_**: in `/models`
+- **_format_**: `product.js`
 
 ```
 module.exports = class Product {
@@ -21,18 +21,23 @@ module.exports = class Product {
 
 ## V = View
 
-- WHAT: What user sees, UI
-- WHERE: in `/views`
-- FORMAT: HTML or its variation with templating engines
+- **_what_**: What user sees, UI
+- **_where_**: in `/views`
+- **_format_**: HTML or its variation with templating engines
 
 ## C = Controller
 
-- WHAT: logic to connect models and views, API requests and routes
-- WHERE: split across middleware functions
-- FORMAT:
+- **_what_**: logic to connect models and views, API requests and routes
+- **_where_**: split across middleware functions
+- **_format_**:
 
-  - `app.js`: `app.use(publicRoutes);``
-  - `/routes/shop.js`:
+  - `app.js`
+
+  ```
+  app.use(publicRoutes);
+  ```
+
+  - `/routes/shop.js`
 
   ```
     const express = require("express");
@@ -45,7 +50,7 @@ module.exports = class Product {
 
   ```
 
-  - `/controllers/products.js`:
+  - `/controllers/products.js`
 
   ```
     const Product = require("../models/product");
