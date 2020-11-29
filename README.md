@@ -1,6 +1,18 @@
 # Node.js MVC Template
 
-This repository is based on 40+ hours complete Node.js course by Academind including tools to work with node.js from basic to advanced.
+Basic MVC file structure
+
+```
+app.js
+|-routes
+    |-shop.js
+|-models
+    |-product.js
+|-views
+    |-shop.ejs
+|-controllers
+    |-products.js
+```
 
 ## M = Model
 
