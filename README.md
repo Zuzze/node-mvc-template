@@ -1,145 +1,63 @@
-# Node.js Complete Guide
+# Node.js MVC Template
 
 This repository is based on 40+ hours complete Node.js course by Academind including tools to work with node.js from basic to advanced.
 
-## npm (Node Package Manager)
+## M = Model
 
-A tool to add external packages and manage nodejs apps.
-
-### npm scripts
-
-To add custom scripts to make dev workflow easier there are two ways:
-
-1. Script with reserved word: run with `npm <script_name>` e.g. `npm start`
-2. Your own custom script name: run with `npm run <script_name>` e.g. `npm run my-script-name`
-
-### Installing npm packages
-
-If project is new and `node_modules` folder not included: `npm install` initializes the project.
-
-Adding new package - Three options:
-a) Global (all projects): npm install <package> -g
-b) Dev only (not needed in prod): npm install <package> --save-dev
-c) Prod only: npm install <package> --save
-
-### nodemon
-
-Enables "hot reloading" so you don't have to restart the server everry time you make a change in your code
-
-## Express & Bodyparser
-
-Init express server
+- WHAT: Models represent data in your code, ES6 classes
+- WHERE: in `/models`
+- FORMAT: `product.js`
 
 ```
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
+module.exports = class Product {
+  constructor(title) {
+    this.title = title;
+  }
 
-const app = express()
-app.use(bodyparser.urlencoded({extended: false})
+  // class functions
+  save() { ... }
+};
 ```
 
-### Types of requests
+## V = View
 
-- `app.use()` (All http methods)
-- `app.get()` (Only GET)
-- `app.post()` (Only POST)
+- WHAT: What user sees, UI
+- WHERE: in `/views`
+- FORMAT: HTML or its variation with templating engines
 
-## Public folder
+## C = Controller
 
-if you want to expose client to some files (e.g. CSS) in your node.js app, you have to put them into `public folder`
+- WHAT: logic to connect models and views, API requests and routes
+- WHERE: split across middleware functions
+- FORMAT:
 
-NOTE: when referring to public folder, use "/" as route, not "/public/" as node sees public files are in the root
+  - `app.js`: `app.use(publicRoutes);``
+  - `/routes/shop.js`:
 
-## Templating engines
+  ```
+    const express = require("express");
+    const router = express.Router();
+    const productsController = require("../controllers/products");
 
-Tools to mix dynamic content (JS) into template (HTML). The final page response will be always pure HTML. Define template engines with express using `app.set("view engine", "handlebars")` and return template by `res.render(...)`.
+    router.get("/", productsController.getProducts);
 
-### 1. Pug
+    module.exports = router;
 
-No end tags, indentation important
+  ```
 
-```
- main
-        if prods.length > 0
-            ...
-        else
-            ...
-```
+  - `/controllers/products.js`:
 
-Variable
+  ```
+    const Product = require("../models/product");
 
-```
-title #{pageTitle}
-```
-
-Can extract main layout by
-
-```
-extends layouts/main-layout.pug
-```
-
-### 2. Handlebars
-
-Uses {{...}} to separate JS, uses `#` to start and `/` to end. Can extract main layout into separate file
-
-```
-<main>
-    {{#if hasProducts }}
-        ...
-    {{ else }}
-        ...
-    {{/if }}
-</main>
-```
-
-Variable
-
-```
-<title>{{ pageTitle }}</title>
-```
-
-Can extract main layout into `main-layout.handlebars` and define in `app.js` (not in template)
-
-```
-app.engine(
-  "handlebars",
-  expressHbs({
-    layoutsDir: "views/layouts",
-    defaultLayout: "main-layout",
-    extname: "handlebars"
-  })
-);
-```
-
-You must define body (where content goes) in `main-layout.handlebars` template:
-
-```
-   {{{ body }}}
-```
-
-### 3. EJS
-
-JS wrapped inside `<% ... %>`.
-
-```
-<main>
-    <% if (prods.length > 0) { %>
-        ...
-    <% } else { %>
-        ...
-    <% } %>
-</main>
-```
-
-Variable
-
-```
-<title><%= pageTitle %></title>
-```
-
-Can extract main layout into separate files (`head.ejs`, `navigation.ejs`, `end.js`), import into template by
-
-```
-<%- include('includes/head.ejs') %>
-```
+    exports.getProducts = (req, res, next) => {
+    // second argument is callback as the action is asynchronous
+        Product.fetchAll(products => {
+            res.render("shop", {
+                prods: products,
+                pageTitle: "Shop",
+                path: "/",
+            });
+        });
+    };
+  ```
