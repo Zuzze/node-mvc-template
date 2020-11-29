@@ -36,6 +36,8 @@ module.exports = class Product {
   - `app.js`
 
   ```
+  const publicRoutes = require("./routes/shop");
+
   app.use(publicRoutes);
   ```
 
