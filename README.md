@@ -16,6 +16,8 @@ module.exports = class Product {
 
   // class functions
   save() { ... }
+
+  fetchAll() { ... }
 };
 ```
 
